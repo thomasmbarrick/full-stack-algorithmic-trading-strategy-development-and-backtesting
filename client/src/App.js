@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from "react";
 
 function App() {
-  const [data, setData] = useState({});
+  const [companies, setCompanies] = useState(null);
 
   useEffect(() => {
     fetch("/companies")
       .then(res => res.json())
       .then(data => {
-        setData(data);
-        console.log(data);
+        console.log(data); // Log the data to verify the structure
+        setCompanies(data.Companies); // Update state with the companies data
       });
   }, []);
 
   return (
     <div>
-      {typeof data.companies === "undefined" ? (
+      {companies === null ? (
         <p>Loading...</p>
       ) : (
-        data.companies.map((company, i) => (
-          <p key={i}>{company}</p>
+        Object.entries(companies).map(([company, symbol], i) => (
+          <p key={i}>{`${company}: ${symbol}`}</p>
         ))
       )}
     </div>
