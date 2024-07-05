@@ -3,12 +3,19 @@ import backtrader
 import datetime 
 from strategies import BB, MeanReversionStrategy, MACD, MovingAverageCrossover, RSI
 app = Flask(__name__)
-
-
+import json 
+import os
+import pathlib
 #members API route
-@app.route("/members")
-def members():
-    return{"members": ["1", "2", "3"]}
+@app.route("/companies")
+def companies():
+    historical_data_path = os.path.join(os.getcwd(), "flask-server", "historical_data.json")
+    print(f"this is the historical data path {historical_data_path}")
+    f = open(historical_data_path)
+    data = json.load(f)
+    return data
+ 
+
 
 @app.route("/trade")
 def trade():

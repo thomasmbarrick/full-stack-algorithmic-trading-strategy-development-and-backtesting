@@ -1,0 +1,22 @@
+{
+    "Companies":{
+        "Apple":"AAPL",
+        "Amazon":"AMZN",
+        "Alphabet":"GOOGL",
+        "Home Depot":"HD",
+        "Johnson & Johnson": "JNJ",
+        "JPMorgan Chase & Co.": "JPM",
+        "The Coca-Cola Company": "KO",
+        "Meta":"META",
+        "Microsoft Corporation":"MSFT",
+        "NVIDIA Corporation":"NVDA",
+        "Novartis AG":"NVS",
+        "Pfizer Inc.":"PFE",
+        "The Procter & Gamble Company":"PG",
+        "Tesla":"TSLA",
+        "Taiwan Semiconductor Manufacturing Company Limited":"TSM",
+        "UnitedHealth Group Incorporated":"UNH",
+        "Visa Inc.":"V",
+        "Walmart Inc.": "WMT"
+    }
+}
