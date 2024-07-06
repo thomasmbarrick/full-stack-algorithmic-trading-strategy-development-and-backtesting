@@ -210,7 +210,7 @@ class RSI(bt.Strategy):
     def __init__(self):
         self.dataclose = self.datas[0].close
         self.order = None
-        self.rsi = backtrader.indicators.RelativeStrengthIndex(self.data, period=self.params.period)
+        self.rsi = bt.indicators.RelativeStrengthIndex(self.data, period=self.params.period)
         
     def notify_order(self, order):
         if order.status in [order.Submitted, order.Accepted]:

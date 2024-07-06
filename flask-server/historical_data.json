@@ -1,22 +1,23 @@
 {
-    "Companies":{
-        "Apple":"AAPL",
-        "Amazon":"AMZN",
-        "Alphabet":"GOOGL",
-        "Home Depot":"HD",
-        "Johnson & Johnson": "JNJ",
-        "JPMorgan Chase & Co.": "JPM",
-        "The Coca-Cola Company": "KO",
-        "Meta":"META",
-        "Microsoft Corporation":"MSFT",
-        "NVIDIA Corporation":"NVDA",
-        "Novartis AG":"NVS",
-        "Pfizer Inc.":"PFE",
-        "The Procter & Gamble Company":"PG",
-        "Tesla":"TSLA",
-        "Taiwan Semiconductor Manufacturing Company Limited":"TSM",
-        "UnitedHealth Group Incorporated":"UNH",
-        "Visa Inc.":"V",
-        "Walmart Inc.": "WMT"
-    }
-}
+    "Companies": [
+      {"name": "Apple", "ticker": "AAPL"},
+      {"name": "Amazon", "ticker": "AMZN"},
+      {"name": "Alphabet", "ticker": "GOOGL"},
+      {"name": "Home Depot", "ticker": "HD"},
+      {"name": "Johnson & Johnson", "ticker": "JNJ"},
+      {"name": "JPMorgan Chase & Co.", "ticker": "JPM"},
+      {"name": "The Coca-Cola Company", "ticker": "KO"},
+      {"name": "Meta", "ticker": "META"},
+      {"name": "Microsoft Corporation", "ticker": "MSFT"},
+      {"name": "NVIDIA Corporation", "ticker": "NVDA"},
+      {"name": "Novartis AG", "ticker": "NVS"},
+      {"name": "Pfizer Inc.", "ticker": "PFE"},
+      {"name": "The Procter & Gamble Company", "ticker": "PG"},
+      {"name": "Tesla", "ticker": "TSLA"},
+      {"name": "Taiwan Semiconductor Manufacturing Company Limited", "ticker": "TSM"},
+      {"name": "UnitedHealth Group Incorporated", "ticker": "UNH"},
+      {"name": "Visa Inc.", "ticker": "V"},
+      {"name": "Walmart Inc.", "ticker": "WMT"}
+    ]
+  }
+  
