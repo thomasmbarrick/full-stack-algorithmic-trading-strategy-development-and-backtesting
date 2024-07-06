@@ -1,0 +1,9 @@
+{
+    "Strategies": [
+      {"name": "Moving Average Crossover", "class_title": "MovingAverageCrossover"},
+      {"name": "Relative Strength Index", "class_title": "RSI"},
+      {"name": "Bollinger Bands", "class_title": "BB"},
+      {"name": "Mean Reversion Strategy", "class_title": "MeanReversionStrategy"},
+      {"name": "Moving Average Convergence Divergence", "class_title": "MACD"}
+    ]
+  }

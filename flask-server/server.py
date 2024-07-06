@@ -8,24 +8,31 @@ import pathlib
 
 app = Flask(__name__)
 
+
+"""Opening neccessary JSON documents"""
 historical_data_path = os.path.join(os.getcwd(), "flask-server", "historical_data.json")
 with open(historical_data_path, "r") as hisorical_data_file:
     historical_data = json.load(hisorical_data_file)
+    
+strategy_path = os.path.join(os.getcwd(), "flask-server", "strategy.json")
+with open(strategy_path, "r") as strategy_file:
+    strategy = json.load(strategy_file)
 
 selected_stock = historical_data["Companies"][0]['ticker']
+selected_strategy = strategy["Strategies"][0]
 
-# API route to get companies
+""" API route to get companies from historical_data json"""
 @app.route("/companies")
 def companies():
     return jsonify(historical_data)
 
-# API route to get the selected stock
+""" API route to return selected Stock to front end"""
 @app.route("/selectedStock")
 def selected_stock_route():
     global selected_stock
     return jsonify({"selectedStock": selected_stock})
 
-# API route to submit selection
+"""API route to fetch selected stock from the front end/ update """
 @app.route("/submit", methods=["POST"])
 def submit_selection():
     global selected_stock
@@ -34,6 +41,31 @@ def submit_selection():
     print(f"Selected company ticker: {selected_stock}")
     return jsonify({"message": "Selection received", "selectedCompany": selected_stock})
 
+
+@app.route("/strategies")
+def strategies():
+    return jsonify(strategy)
+
+
+@app.route("/selectedStrategy")
+def selected_strategy_route():
+    global selected_strategy
+    return jsonify({"selectedStrategy": selected_strategy})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+""" API Route to make trade"""
 @app.route("/trade")
 def trade():
     cerebro = backtrader.Cerebro()
