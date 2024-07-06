@@ -118,7 +118,7 @@ class MACD(bt.Strategy):
         self.bar_executed = 0
         
         # Add MACD indicator
-        self.macd = backtrader.indicators.MACD(
+        self.macd = bt.indicators.MACD(
             self.datas[0],
             period_me1=self.params.fast_ema_period,
             period_me2=self.params.slow_ema_period,

@@ -8,6 +8,17 @@ import pathlib
 
 app = Flask(__name__)
 
+"""
+TODO - MMMVP
+*   - Dropdown for selected stock
+*   - Allow users to set sizer
+*   - Allow users to set cash
+*   - Allow users to set timeframe
+*   - Update return API route so it works for all dropdown menus
+*   - Trade API route hookup selected strategy and stock
+*   - Graphing
+"""
+
 
 """Opening neccessary JSON documents"""
 historical_data_path = os.path.join(os.getcwd(), "flask-server", "historical_data.json")
@@ -18,8 +29,9 @@ strategy_path = os.path.join(os.getcwd(), "flask-server", "strategy.json")
 with open(strategy_path, "r") as strategy_file:
     strategy = json.load(strategy_file)
 
+#! Needs to always be set to "ticker" and "class_title" as that is what is whatr is needed - ensure the case when updated from front end
 selected_stock = historical_data["Companies"][0]['ticker']
-selected_strategy = strategy["Strategies"][0]
+selected_strategy = strategy["Strategies"][0]["class_title"]
 
 """ API route to get companies from historical_data json"""
 @app.route("/companies")
@@ -41,29 +53,16 @@ def submit_selection():
     print(f"Selected company ticker: {selected_stock}")
     return jsonify({"message": "Selection received", "selectedCompany": selected_stock})
 
-
+"""API route to get companies from stategies JSON"""
 @app.route("/strategies")
 def strategies():
     return jsonify(strategy)
 
-
+""" API route to return selected strategy to front end"""
 @app.route("/selectedStrategy")
 def selected_strategy_route():
     global selected_strategy
     return jsonify({"selectedStrategy": selected_strategy})
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 """ API Route to make trade"""
 @app.route("/trade")
