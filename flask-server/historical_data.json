@@ -1,23 +1,95 @@
 {
-    "Companies": [
-      {"name": "Apple", "ticker": "AAPL"},
-      {"name": "Amazon", "ticker": "AMZN"},
-      {"name": "Alphabet", "ticker": "GOOGL"},
-      {"name": "Home Depot", "ticker": "HD"},
-      {"name": "Johnson & Johnson", "ticker": "JNJ"},
-      {"name": "JPMorgan Chase & Co.", "ticker": "JPM"},
-      {"name": "The Coca-Cola Company", "ticker": "KO"},
-      {"name": "Meta", "ticker": "META"},
-      {"name": "Microsoft Corporation", "ticker": "MSFT"},
-      {"name": "NVIDIA Corporation", "ticker": "NVDA"},
-      {"name": "Novartis AG", "ticker": "NVS"},
-      {"name": "Pfizer Inc.", "ticker": "PFE"},
-      {"name": "The Procter & Gamble Company", "ticker": "PG"},
-      {"name": "Tesla", "ticker": "TSLA"},
-      {"name": "Taiwan Semiconductor Manufacturing Company Limited", "ticker": "TSM"},
-      {"name": "UnitedHealth Group Incorporated", "ticker": "UNH"},
-      {"name": "Visa Inc.", "ticker": "V"},
-      {"name": "Walmart Inc.", "ticker": "WMT"}
-    ]
-  }
+  "Companies": [
+    {
+      "name": "Apple",
+      "ticker": "AAPL",
+      "description": "A leading technology company renowned for its innovations in consumer electronics such as the iPhone, iPad, Mac computers, and Apple Watch, as well as software like iOS and macOS."
+    },
+    {
+      "name": "Amazon",
+      "ticker": "AMZN",
+      "description": "A global e-commerce giant that also offers cloud computing services through Amazon Web Services (AWS) and produces consumer electronics like the Kindle and Echo."
+    },
+    {
+      "name": "Alphabet",
+      "ticker": "GOOGL",
+      "description": "The parent company of Google, it dominates in online advertising, search engine technology, and also invests in ventures like self-driving cars with Waymo and health tech with Verily."
+    },
+    {
+      "name": "Home Depot",
+      "ticker": "HD",
+      "description": "The largest home improvement retailer in the U.S., offering a wide range of products including tools, construction materials, and home improvement services."
+    },
+    {
+      "name": "Johnson & Johnson",
+      "ticker": "JNJ",
+      "description": "A multinational healthcare company that produces medical devices, pharmaceuticals, and consumer health products like Band-Aid, Tylenol, and Johnson's Baby products."
+    },
+    {
+      "name": "JPMorgan Chase & Co.",
+      "ticker": "JPM",
+      "description": "A leading global financial services firm offering investment banking, asset management, and other financial services to individuals, corporations, and governments."
+    },
+    {
+      "name": "The Coca-Cola Company",
+      "ticker": "KO",
+      "description": "A world-renowned beverage company famous for Coca-Cola, and also offers a diverse portfolio of brands including Sprite, Fanta, Minute Maid, and Dasani."
+    },
+    {
+      "name": "Meta",
+      "ticker": "META",
+      "description": "A social media and technology company formerly known as Facebook, it owns popular platforms like Facebook, Instagram, WhatsApp, and develops virtual reality products through Oculus."
+    },
+    {
+      "name": "Microsoft Corporation",
+      "ticker": "MSFT",
+      "description": "A technology leader known for its software products like Windows and Office, cloud computing services via Azure, and hardware including Surface tablets and Xbox gaming consoles."
+    },
+    {
+      "name": "NVIDIA Corporation",
+      "ticker": "NVDA",
+      "description": "Specializes in graphics processing units (GPUs) for gaming and professional markets, as well as artificial intelligence and data center technologies."
+    },
+    {
+      "name": "Novartis AG",
+      "ticker": "NVS",
+      "description": "A global healthcare company focusing on innovative medicines, generics, and eye care products through its divisions like Sandoz and Alcon."
+    },
+    {
+      "name": "Pfizer Inc.",
+      "ticker": "PFE",
+      "description": "A pharmaceutical giant known for developing widely-used medications such as Lipitor, Viagra, and the widely distributed COVID-19 vaccine, Comirnaty."
+    },
+    {
+      "name": "The Procter & Gamble Company",
+      "ticker": "PG",
+      "description": "Produces a vast array of consumer goods including household names like Tide, Pampers, Gillette, and Crest across categories such as cleaning, personal health, and grooming."
+    },
+    {
+      "name": "Tesla",
+      "ticker": "TSLA",
+      "description": "A leader in electric vehicles and clean energy, known for its electric cars like the Model S, Model 3, and energy products such as Solar Roof and Powerwall."
+    },
+    {
+      "name": "Taiwan Semiconductor Manufacturing Company Limited",
+      "ticker": "TSM",
+      "description": "The world's largest dedicated independent semiconductor foundry, manufacturing chips for various industries including consumer electronics and automotive."
+    },
+    {
+      "name": "UnitedHealth Group Incorporated",
+      "ticker": "UNH",
+      "description": "A diversified healthcare company offering health benefits and services through its UnitedHealthcare and Optum subsidiaries, focusing on improving health outcomes."
+    },
+    {
+      "name": "Visa Inc.",
+      "ticker": "V",
+      "description": "A global payments technology company that facilitates electronic funds transfers throughout the world, primarily through Visa-branded credit, debit, and prepaid cards."
+    },
+    {
+      "name": "Walmart Inc.",
+      "ticker": "WMT",
+      "description": "A multinational retail corporation that operates a chain of hypermarkets, discount department stores, and grocery stores, known for its wide variety of products at competitive prices."
+    }
+  ]
+}
   
