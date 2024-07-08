@@ -1,14 +1,19 @@
 {
   "Companies": [
     {
-      "name": "Apple",
-      "ticker": "AAPL",
-      "description": "A leading technology company renowned for its innovations in consumer electronics such as the iPhone, iPad, Mac computers, and Apple Watch, as well as software like iOS and macOS."
+      "name": "3M Company",
+      "ticker": "MMM",
+      "description": "A multinational conglomerate operating in various industries, known for its innovative products such as adhesives, abrasives, laminates, passive fire protection, and dental products."
     },
     {
-      "name": "Amazon",
-      "ticker": "AMZN",
-      "description": "A global e-commerce giant that also offers cloud computing services through Amazon Web Services (AWS) and produces consumer electronics like the Kindle and Echo."
+      "name": "Abbott Laboratories",
+      "ticker": "ABT",
+      "description": "A healthcare company that discovers, develops, manufactures, and sells a broad and diversified range of health care products, including diagnostics, medical devices, and nutritional products."
+    },
+    {
+      "name": "Adobe Inc.",
+      "ticker": "ADBE",
+      "description": "A software company known for its creative and multimedia products such as Photoshop, Illustrator, Acrobat, and the Adobe Creative Cloud suite."
     },
     {
       "name": "Alphabet",
@@ -16,9 +21,59 @@
       "description": "The parent company of Google, it dominates in online advertising, search engine technology, and also invests in ventures like self-driving cars with Waymo and health tech with Verily."
     },
     {
+      "name": "Amazon",
+      "ticker": "AMZN",
+      "description": "A global e-commerce giant that also offers cloud computing services through Amazon Web Services (AWS) and produces consumer electronics like the Kindle and Echo."
+    },
+    {
+      "name": "Apple",
+      "ticker": "AAPL",
+      "description": "A leading technology company renowned for its innovations in consumer electronics such as the iPhone, iPad, Mac computers, and Apple Watch, as well as software like iOS and macOS."
+    },
+    {
+      "name": "Berkshire Hathaway",
+      "ticker": "BRK.B",
+      "description": "A multinational conglomerate holding company, led by Warren Buffett, with subsidiaries in various industries including insurance, rail transportation, energy, manufacturing, and retail."
+    },
+    {
+      "name": "Boeing Company",
+      "ticker": "BA",
+      "description": "An aerospace and defense company that designs, manufactures, and sells airplanes, rotorcraft, rockets, satellites, telecommunications equipment, and missiles worldwide."
+    },
+    {
+      "name": "Chevron Corporation",
+      "ticker": "CVX",
+      "description": "A multinational energy corporation engaged in every aspect of the oil, natural gas, and geothermal energy industries, including exploration, production, refining, and marketing."
+    },
+    {
+      "name": "Costco Wholesale Corporation",
+      "ticker": "COST",
+      "description": "An American multinational corporation that operates a chain of membership-only big-box retail stores, known for offering bulk quantities of products at discounted prices."
+    },
+    {
+      "name": "Exxon Mobil Corporation",
+      "ticker": "XOM",
+      "description": "An American multinational oil and gas corporation, involved in the exploration, production, transportation, and sale of crude oil, natural gas, and petroleum products."
+    },
+    {
+      "name": "General Electric Company",
+      "ticker": "GE",
+      "description": "A multinational conglomerate involved in aviation, power, renewable energy, and healthcare sectors, known for its technology and industrial advancements."
+    },
+    {
       "name": "Home Depot",
       "ticker": "HD",
       "description": "The largest home improvement retailer in the U.S., offering a wide range of products including tools, construction materials, and home improvement services."
+    },
+    {
+      "name": "IBM Corporation",
+      "ticker": "IBM",
+      "description": "A multinational technology company providing hardware, software, and consulting services, known for its advancements in cloud computing, AI, and quantum computing."
+    },
+    {
+      "name": "Intel Corporation",
+      "ticker": "INTC",
+      "description": "A leading semiconductor company known for its microprocessors, which power a large percentage of the world's personal computers, and for its advancements in data center technology and IoT."
     },
     {
       "name": "Johnson & Johnson",
@@ -31,9 +86,9 @@
       "description": "A leading global financial services firm offering investment banking, asset management, and other financial services to individuals, corporations, and governments."
     },
     {
-      "name": "The Coca-Cola Company",
-      "ticker": "KO",
-      "description": "A world-renowned beverage company famous for Coca-Cola, and also offers a diverse portfolio of brands including Sprite, Fanta, Minute Maid, and Dasani."
+      "name": "McDonald's Corporation",
+      "ticker": "MCD",
+      "description": "The world's largest chain of fast food restaurants, known for its hamburgers, fries, and various other quick-service menu items."
     },
     {
       "name": "Meta",
@@ -46,9 +101,14 @@
       "description": "A technology leader known for its software products like Windows and Office, cloud computing services via Azure, and hardware including Surface tablets and Xbox gaming consoles."
     },
     {
-      "name": "NVIDIA Corporation",
-      "ticker": "NVDA",
-      "description": "Specializes in graphics processing units (GPUs) for gaming and professional markets, as well as artificial intelligence and data center technologies."
+      "name": "Netflix, Inc.",
+      "ticker": "NFLX",
+      "description": "A streaming entertainment service providing a vast library of films, television series, and original content available to subscribers worldwide."
+    },
+    {
+      "name": "Nike, Inc.",
+      "ticker": "NKE",
+      "description": "A leading global manufacturer and marketer of athletic footwear, apparel, equipment, and accessories, known for its iconic 'Swoosh' logo and brands like Nike, Jordan, and Converse."
     },
     {
       "name": "Novartis AG",
@@ -56,14 +116,34 @@
       "description": "A global healthcare company focusing on innovative medicines, generics, and eye care products through its divisions like Sandoz and Alcon."
     },
     {
+      "name": "NVIDIA Corporation",
+      "ticker": "NVDA",
+      "description": "Specializes in graphics processing units (GPUs) for gaming and professional markets, as well as artificial intelligence and data center technologies."
+    },
+    {
+      "name": "PepsiCo, Inc.",
+      "ticker": "PEP",
+      "description": "A global food and beverage leader with a diverse product portfolio including brands like Pepsi, Mountain Dew, Lay's, Gatorade, Tropicana, and Quaker."
+    },
+    {
       "name": "Pfizer Inc.",
       "ticker": "PFE",
       "description": "A pharmaceutical giant known for developing widely-used medications such as Lipitor, Viagra, and the widely distributed COVID-19 vaccine, Comirnaty."
     },
     {
-      "name": "The Procter & Gamble Company",
-      "ticker": "PG",
-      "description": "Produces a vast array of consumer goods including household names like Tide, Pampers, Gillette, and Crest across categories such as cleaning, personal health, and grooming."
+      "name": "Salesforce, Inc.",
+      "ticker": "CRM",
+      "description": "A cloud-based software company specializing in customer relationship management (CRM) services and enterprise applications focused on sales, customer service, marketing automation, and analytics."
+    },
+    {
+      "name": "Starbucks Corporation",
+      "ticker": "SBUX",
+      "description": "A global coffeehouse chain known for its specialty coffee beverages, food items, and merchandise, with a strong emphasis on customer experience and store ambiance."
+    },
+    {
+      "name": "Taiwan Semiconductor Manufacturing Company Limited",
+      "ticker": "TSM",
+      "description": "The world's largest dedicated independent semiconductor foundry, manufacturing chips for various industries including consumer electronics and automotive."
     },
     {
       "name": "Tesla",
@@ -71,9 +151,14 @@
       "description": "A leader in electric vehicles and clean energy, known for its electric cars like the Model S, Model 3, and energy products such as Solar Roof and Powerwall."
     },
     {
-      "name": "Taiwan Semiconductor Manufacturing Company Limited",
-      "ticker": "TSM",
-      "description": "The world's largest dedicated independent semiconductor foundry, manufacturing chips for various industries including consumer electronics and automotive."
+      "name": "The Coca-Cola Company",
+      "ticker": "KO",
+      "description": "A world-renowned beverage company famous for Coca-Cola, and also offers a diverse portfolio of brands including Sprite, Fanta, Minute Maid, and Dasani."
+    },
+    {
+      "name": "The Procter & Gamble Company",
+      "ticker": "PG",
+      "description": "Produces a vast array of consumer goods including household names like Tide, Pampers, Gillette, and Crest across categories such as cleaning, personal health, and grooming."
     },
     {
       "name": "UnitedHealth Group Incorporated",
@@ -89,7 +174,11 @@
       "name": "Walmart Inc.",
       "ticker": "WMT",
       "description": "A multinational retail corporation that operates a chain of hypermarkets, discount department stores, and grocery stores, known for its wide variety of products at competitive prices."
+    },
+    {
+      "name": "Walt Disney Company",
+      "ticker": "DIS",
+      "description": "A diversified international entertainment and media enterprise known for its film studios, theme parks, television networks, and streaming services like Disney+."
     }
   ]
 }
-  
