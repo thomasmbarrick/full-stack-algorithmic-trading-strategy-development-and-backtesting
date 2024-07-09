@@ -29,7 +29,7 @@ strategy_path = os.path.join(os.getcwd(), "flask-server", "strategy.json")
 with open(strategy_path, "r") as strategy_file:
     strategy = json.load(strategy_file)
 
-#! Needs to always be set to "ticker" and "class_title" as that is what is whatr is needed - ensure the case when updated from front end
+#! Needs to always be set to "ticker" and "class_title" as that is what is what is needed - ensure the case when updated from front end
 selected_stock = historical_data["Companies"][0]['ticker']
 selected_strategy = strategy["Strategies"][0]["class_title"]
 

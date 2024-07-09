@@ -31,11 +31,6 @@
       "description": "A leading technology company renowned for its innovations in consumer electronics such as the iPhone, iPad, Mac computers, and Apple Watch, as well as software like iOS and macOS."
     },
     {
-      "name": "Berkshire Hathaway",
-      "ticker": "BRK.B",
-      "description": "A multinational conglomerate holding company, led by Warren Buffett, with subsidiaries in various industries including insurance, rail transportation, energy, manufacturing, and retail."
-    },
-    {
       "name": "Boeing Company",
       "ticker": "BA",
       "description": "An aerospace and defense company that designs, manufactures, and sells airplanes, rotorcraft, rockets, satellites, telecommunications equipment, and missiles worldwide."
