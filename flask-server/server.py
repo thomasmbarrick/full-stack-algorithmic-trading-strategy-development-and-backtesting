@@ -1,8 +1,8 @@
-from flask import Flask, request, jsonify 
+from flask import Flask, request, jsonify
 import backtrader
-import datetime 
+import datetime
 from strategies import BB, MeanReversionStrategy, MACD, MovingAverageCrossover, RSI
-import json 
+import json
 import os
 import pathlib
 
@@ -19,19 +19,21 @@ TODO - MMMVP
 *   - Graphing
 """
 
-
-"""Opening neccessary JSON documents"""
+"""Opening necessary JSON documents"""
 historical_data_path = os.path.join(os.getcwd(), "flask-server", "historical_data.json")
-with open(historical_data_path, "r") as hisorical_data_file:
-    historical_data = json.load(hisorical_data_file)
+with open(historical_data_path, "r") as historical_data_file:
+    historical_data = json.load(historical_data_file)
     
 strategy_path = os.path.join(os.getcwd(), "flask-server", "strategy.json")
 with open(strategy_path, "r") as strategy_file:
     strategy = json.load(strategy_file)
 
-#! Needs to always be set to "ticker" and "class_title" as that is what is what is needed - ensure the case when updated from front end
+#! Needs to always be set to "ticker" and "class_title" as that is what is needed - ensure the case when updated from front end
 selected_stock = historical_data["Companies"][0]['ticker']
 selected_strategy = strategy["Strategies"][0]["class_title"]
+
+stake=500
+broker_cash=1000000
 
 """ API route to get companies from historical_data json"""
 @app.route("/companies")
@@ -49,11 +51,13 @@ def selected_stock_route():
 def submit_selection():
     global selected_stock
     data = request.json
+    if data is None:
+        return jsonify({"error": "Invalid JSON data"}), 400
     selected_stock = data.get('selectedCompany')
     print(f"Selected company ticker: {selected_stock}")
     return jsonify({"message": "Selection received", "selectedCompany": selected_stock})
 
-"""API route to get companies from stategies JSON"""
+"""API route to get companies from strategies JSON"""
 @app.route("/strategies")
 def strategies():
     return jsonify(strategy)
@@ -88,3 +92,4 @@ def trade():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
