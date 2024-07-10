@@ -1,7 +1,22 @@
 import backtrader as bt
 from backtrader.indicators import BollingerBands
 
+
+
 class BB(bt.Strategy):
+    
+    """
+    Bollinger Bands Strategy (BB):
+    
+    This strategy uses Bollinger Bands to generate buy and sell signals. Bollinger Bands consist of a moving average (usually the 20-period moving average)
+    and two standard deviation lines plotted above and below the moving average. The strategy buys when the price closes above the upper Bollinger Band and
+    sells when it closes below the lower Bollinger Band.
+
+    Parameters:
+    - period: Number of periods for calculating the Bollinger Bands (default is 20).
+    - stddev: Standard deviation multiplier for the Bollinger Bands (default is 2).
+    """
+      
     params = (("period", 20), ("stddev", 2))
     
     def log(self, txt, dt=None):
@@ -36,8 +51,21 @@ class BB(bt.Strategy):
             self.buy()
         elif self.dataclose[0] < self.bollinger.lines.bot[0] and self.position:
             self.sell()
-                        
+ 
 class MeanReversionStrategy(bt.Strategy):
+    
+    """
+    Mean Reversion Strategy:
+    
+    This strategy is based on the concept that prices tend to revert to their mean over time. It uses the mean (average) price and standard deviation to
+    determine buy and sell signals. The strategy buys when the price is significantly below the mean (by a factor of the standard deviation) and sells when
+    it is significantly above.
+
+    Parameters:
+    - period: Number of periods for calculating the mean and standard deviation (default is 20).
+    - devfactor: Factor of standard deviation for determining buy/sell signals (default is 2).
+    """   
+    
     params = (
         ('period', 20),          
         ('devfactor', 2),        
@@ -99,8 +127,22 @@ class MeanReversionStrategy(bt.Strategy):
             if self.position:  # Only sell if currently in a position
                 self.order = self.sell()
                 self.log(f'SELL CREATE, Price: {price:.2f}')
-                             
+  
 class MACD(bt.Strategy):
+    
+    """
+    MACD Strategy:
+    
+    This strategy uses the Moving Average Convergence Divergence (MACD) indicator, which consists of the MACD line, signal line, and histogram.
+    The MACD line is the difference between a fast and a slow exponential moving average (EMA). The signal line is an EMA of the MACD line. The 
+    strategy buys when the MACD line crosses above the signal line and sells when the MACD line crosses below the signal line.
+
+    Parameters:
+    - fast_ema_period: Period for the fast EMA (default is 12).
+    - slow_ema_period: Period for the slow EMA (default is 26).
+    - signal_period: Period for the signal line (default is 9).
+    """
+    
     params = (
         ('fast_ema_period', 12),
         ('slow_ema_period', 26),
@@ -153,9 +195,20 @@ class MACD(bt.Strategy):
             if self.macd.macd[0] < self.macd.signal[0]:
                 self.log('SELL CREATE, %.2f' % self.dataclose[0])
                 self.order = self.sell()
-                
-class MovingAverageCrossover(bt.Strategy):
     
+class MovingAverageCrossover(bt.Strategy):
+
+    """
+    Moving Average Crossover Strategy:
+    
+    This strategy uses two moving averages (a short-period moving average and a long-period moving average) to generate buy and sell signals. The strategy buys when
+    the short-period moving average crosses above the long-period moving average and sells when it crosses below.
+
+    Parameters:
+    - short_period: Period for the short moving average (default is 50).
+    - long_period: Period for the long moving average (default is 200).
+    """
+
     params = (
         ('short_period', 50),
         ('long_period', 200),  
@@ -200,6 +253,19 @@ class MovingAverageCrossover(bt.Strategy):
             self.order = self.sell()
 
 class RSI(bt.Strategy):
+    
+    """
+    RSI Strategy:
+    
+    This strategy uses the Relative Strength Index (RSI) to generate buy and sell signals. RSI is a momentum oscillator that measures the speed and change
+    of price movements. It oscillates between 0 and 100 and is typically used to identify overbought or oversold conditions in a market. The strategy buys
+    when the RSI is below 30, indicating that the asset is oversold and may be undervalued, and sells when the RSI is above 70, indicating that the asset is 
+    overbought and may be overvalued.
+
+    Parameters:
+    - period: Number of periods for calculating the RSI (default is 14).
+    """
+    
     params = (('period', 14),)
     
     def log(self, txt, dt=None):

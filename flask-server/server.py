@@ -35,7 +35,7 @@ selected_strategy = strategy["Strategies"][0]["class_title"]
 stake=500
 broker_cash=1000000
 
-""" API route to get companies from historical_data json"""
+"""API route to get companies from historical_data json"""
 @app.route("/companies")
 def companies():
     return jsonify(historical_data)

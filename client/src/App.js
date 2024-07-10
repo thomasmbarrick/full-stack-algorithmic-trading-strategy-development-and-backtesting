@@ -50,7 +50,9 @@ function App() {
               </option>
             ))}
           </select>
-          <></>
+          
+          <p>{selectedCompany}</p>
+
         </>
       )}
     </div>
