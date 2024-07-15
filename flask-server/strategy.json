@@ -1,9 +1,29 @@
 {
-    "Strategies": [
-      {"name": "Moving Average Crossover", "class_title": "MovingAverageCrossover"},
-      {"name": "Relative Strength Index", "class_title": "RSI"},
-      {"name": "Bollinger Bands", "class_title": "BB"},
-      {"name": "Mean Reversion Strategy", "class_title": "MeanReversionStrategy"},
-      {"name": "Moving Average Convergence Divergence", "class_title": "MACD"}
-    ]
-  }
+  "Strategies": [
+    {
+      "name": "Bollinger Bands",
+      "class_title": "BB",
+      "description": "A volatility indicator that consists of a middle band (simple moving average) and two outer bands set two standard deviations away from the middle band."
+    },
+    {
+      "name": "Mean Reversion Strategy",
+      "class_title": "MeanReversionStrategy",
+      "description": "A strategy based on the assumption that prices will revert to their historical average or mean over time, identifying opportunities to buy low and sell high."
+    },
+    {
+      "name": "Moving Average Convergence Divergence",
+      "class_title": "MACD",
+      "description": "A trend-following momentum indicator that shows the relationship between two moving averages of a security’s price, typically used to identify potential buy and sell signals."
+    },
+    {
+      "name": "Moving Average Crossover",
+      "class_title": "MovingAverageCrossover",
+      "description": "A strategy that generates buy and sell signals when a short-term moving average crosses above or below a long-term moving average."
+    },
+    {
+      "name": "Relative Strength Index",
+      "class_title": "RSI",
+      "description": "A momentum oscillator that measures the speed and change of price movements to identify overbought or oversold conditions."
+    }
+  ]
+}
