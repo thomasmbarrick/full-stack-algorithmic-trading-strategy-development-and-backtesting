@@ -22,7 +22,7 @@ TODO - MMMVP
 historical_data_path = os.path.join(os.getcwd(), "flask-server", "historical_data.json")
 with open(historical_data_path, "r") as historical_data_file:
     historical_data = json.load(historical_data_file)
-
+    
 strategy_path = os.path.join(os.getcwd(), "flask-server", "strategy.json")
 with open(strategy_path, "r") as strategy_file:
     strategy = json.load(strategy_file)
@@ -72,6 +72,17 @@ def submit_strategy():
     print(f"Selected strategy: {selected_strategy}")
     return jsonify({"message": "Selection received", "selectedStrategy": selected_strategy})
 
+@app.route("/setParameters", methods=["POST"])
+def set_parameters():
+    global stake, broker_cash
+    data = request.json
+    if data is None:
+        return jsonify({"error": "Invalid JSON data"}), 400
+    stake = data.get('stake', stake)
+    broker_cash = data.get('brokerCash', broker_cash)
+    print(f"Stake: {stake}, Broker Cash: {broker_cash}")
+    return jsonify({"message": "Parameters updated", "stake": stake, "brokerCash": broker_cash})
+
 """API route to get strategies from strategies JSON"""
 @app.route("/strategies")
 def strategies():
@@ -120,6 +131,7 @@ def trade():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 

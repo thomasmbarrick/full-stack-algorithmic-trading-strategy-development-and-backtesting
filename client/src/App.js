@@ -7,6 +7,8 @@ function App() {
   const [strategies, setStrategies] = useState([]);
   const [selectedStrategy, setSelectedStrategy] = useState("");
   const [strategyDescription, setStrategyDescription] = useState("");
+  const [stake, setStake] = useState(500);
+  const [brokerCash, setBrokerCash] = useState(1000000);
 
   useEffect(() => {
     fetch("/companies")
@@ -24,7 +26,7 @@ function App() {
       .then(res => res.json())
       .then(data => {
         setStrategies(data.Strategies);
-        setSelectedStrategy(data.Strategies[0].class_title);
+        setSelectedStrategy(data.Strategies[0].name);
         setStrategyDescription(data.Strategies[0].description);
       })
       .catch(error => {
@@ -34,16 +36,10 @@ function App() {
 
   useEffect(() => {
     if (selectedStrategy) {
-      fetch("/strategyDescription")
-        .then(res => res.json())
-        .then(data => {
-          setStrategyDescription(data.description);
-        })
-        .catch(error => {
-          console.error("Error fetching strategy description:", error);
-        });
+      const selectedStrategyObj = strategies.find(strategy => strategy.name === selectedStrategy);
+      setStrategyDescription(selectedStrategyObj.description);
     }
-  }, [selectedStrategy]);
+  }, [selectedStrategy, strategies]);
 
   const handleCompanyChange = event => {
     const selectedValue = event.target.value;
@@ -69,28 +65,50 @@ function App() {
   const handleStrategyChange = event => {
     const selectedValue = event.target.value;
     setSelectedStrategy(selectedValue);
+    const selectedStrategyObj = strategies.find(strategy => strategy.name === selectedValue);
     fetch("/submitStrategy", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ selectedStrategy: selectedValue })
+      body: JSON.stringify({ selectedStrategy: selectedStrategyObj.class_title })
     })
     .then(res => res.json())
     .then(data => {
       console.log(data);
-      fetch("/strategyDescription")
-        .then(res => res.json())
-        .then(data => {
-          setStrategyDescription(data.description);
-        })
-        .catch(error => {
-          console.error("Error fetching strategy description:", error);
-        });
+      setStrategyDescription(selectedStrategyObj.description);
     })
     .catch(error => {
       console.error("Error submitting strategy selection:", error);
     });
+  };
+
+  const handleParameterChange = () => {
+    fetch("/setParameters", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ stake: parseInt(stake, 10), brokerCash: parseFloat(brokerCash) })
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.error("Error setting parameters:", error);
+    });
+  };
+
+  const handleTrade = () => {
+    fetch("/trade")
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        console.error("Error making trade:", error);
+      });
   };
 
   return (
@@ -99,7 +117,7 @@ function App() {
         <p>Loading...</p>
       ) : (
         <>
-
+          <h1>Select an Option</h1>
           <select value={selectedCompany} onChange={handleCompanyChange}>
             {companies.map((company) => (
               <option key={company.ticker} value={company.name}>
@@ -107,20 +125,43 @@ function App() {
               </option>
             ))}
           </select>
-          <p>Selected Company: {selectedCompany}</p>
+
           <p>{selectedCompanyDescription}</p>
 
           <select value={selectedStrategy} onChange={handleStrategyChange}>
             {strategies.map((strategy) => (
-              <option key={strategy.class_title} value={strategy.class_title}>
+              <option key={strategy.class_title} value={strategy.name}>
                 {strategy.name}
               </option>
             ))}
           </select>
-          
-          
+
+          <p>Selected Company: {selectedCompany}</p>
           <p>Selected Strategy: {selectedStrategy}</p>
           <p>Strategy Description: {strategyDescription}</p>
+
+          <div>
+            <label>
+              Stake:
+              <input
+                type="number"
+                value={stake}
+                onChange={(e) => setStake(e.target.value)}
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              Broker Cash:
+              <input
+                type="number"
+                value={brokerCash}
+                onChange={(e) => setBrokerCash(e.target.value)}
+              />
+            </label>
+          </div>
+          <button onClick={handleParameterChange}>Set Parameters</button>
+          <button onClick={handleTrade}>Make Trade</button>
         </>
       )}
     </div>
@@ -128,6 +169,9 @@ function App() {
 }
 
 export default App;
+
+
+
 
 
 
