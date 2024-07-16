@@ -1,57 +1,46 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 import backtrader
 import datetime
 from strategies import BB, MeanReversionStrategy, MACD, MovingAverageCrossover, RSI
 import json
 import os
+import matplotlib.pyplot as plt
 
 app = Flask(__name__)
 
-"""
-TODO - MMMVP
-*   - Dropdown for selected stock
-*   - Allow users to set sizer
-*   - Allow users to set cash
-*   - Allow users to set timeframe
-*   - Update return API route so it works for all dropdown menus
-*   - Trade API route hookup selected strategy and stock
-*   - Graphing
-"""
-
-"""Opening necessary JSON documents"""
-historical_data_path = os.path.join(os.getcwd(), "flask-server", "historical_data.json")
+# Opening necessary JSON documents
+historical_data_path = os.path.join(os.getcwd(), "flask-server/historical_data.json")
 with open(historical_data_path, "r") as historical_data_file:
     historical_data = json.load(historical_data_file)
-    
-strategy_path = os.path.join(os.getcwd(), "flask-server", "strategy.json")
+
+strategy_path = os.path.join(os.getcwd(), "flask-server/strategy.json")
 with open(strategy_path, "r") as strategy_file:
     strategy = json.load(strategy_file)
 
-#! Needs to always be set to "ticker" and "class_title" as that is what is needed - ensure the case when updated from front end
 selected_stock = historical_data["Companies"][0]['ticker']
 selected_strategy = strategy["Strategies"][0]["class_title"]
 
 stake = 500
 broker_cash = 1000000
 
-"""API route to get companies from historical_data json"""
+# API route to get companies from historical_data json
 @app.route("/companies")
 def companies():
     return jsonify(historical_data)
 
-""" API route to return selected Stock to front end"""
+# API route to return selected Stock to front end
 @app.route("/selectedStock")
 def selected_stock_route():
     global selected_stock
     return jsonify({"selectedStock": selected_stock})
 
-""" API route to return selected strategy to front end"""
+# API route to return selected strategy to front end
 @app.route("/selectedStrategy")
 def selected_strategy_route():
     global selected_strategy
     return jsonify({"selectedStrategy": selected_strategy})
 
-"""API route to fetch selected stock from the front end/ update """
+# API route to fetch selected stock from the front end/ update
 @app.route("/submit", methods=["POST"])
 def submit_selection():
     global selected_stock
@@ -72,23 +61,12 @@ def submit_strategy():
     print(f"Selected strategy: {selected_strategy}")
     return jsonify({"message": "Selection received", "selectedStrategy": selected_strategy})
 
-@app.route("/setParameters", methods=["POST"])
-def set_parameters():
-    global stake, broker_cash
-    data = request.json
-    if data is None:
-        return jsonify({"error": "Invalid JSON data"}), 400
-    stake = data.get('stake', stake)
-    broker_cash = data.get('brokerCash', broker_cash)
-    print(f"Stake: {stake}, Broker Cash: {broker_cash}")
-    return jsonify({"message": "Parameters updated", "stake": stake, "brokerCash": broker_cash})
-
-"""API route to get strategies from strategies JSON"""
+# API route to get strategies from strategies JSON
 @app.route("/strategies")
 def strategies():
     return jsonify(strategy)
 
-"""API route to get strategy description"""
+# API route to get strategy description
 @app.route("/strategyDescription")
 def strategy_description():
     global selected_strategy
@@ -97,13 +75,30 @@ def strategy_description():
             return jsonify({"description": strat["description"]})
     return jsonify({"error": "Strategy not found"}), 404
 
-""" API Route to make trade"""
+# API route to set parameters (stake and broker cash)
+@app.route("/setParameters", methods=["POST"])
+def set_parameters():
+    global stake, broker_cash
+    data = request.json
+    if data is None:
+        return jsonify({"error": "Invalid JSON data"}), 400
+    stake = data.get('stake', stake)
+    broker_cash = data.get('brokerCash', broker_cash)
+    return jsonify({"message": "Parameters updated", "stake": stake, "brokerCash": broker_cash})
+
 @app.route("/trade")
 def trade():
+    global selected_stock, selected_strategy, stake, broker_cash
     cerebro = backtrader.Cerebro()
     cerebro.broker.set_cash(broker_cash)
+    data_path = os.path.join(os.getcwd(), "flask-server/historical-data", f"{selected_stock}.csv")
+    
+    # Check if the file exists
+    if not os.path.exists(data_path):
+        print(f"File not found: {data_path}")
+        return jsonify({"error": f"File not found: {data_path}"}), 404
 
-    data_path = os.path.join("historical_data", f"{selected_stock}.csv")
+    print(f"Using data from: {data_path}")
     data = backtrader.feeds.YahooFinanceCSVData(
         dataname=data_path,
         fromdate=datetime.datetime(2000, 1, 1),
@@ -120,18 +115,41 @@ def trade():
         "RSI": RSI
     }
 
+    if selected_strategy not in strategy_map:
+        print(f"Strategy not found: {selected_strategy}")
+        return jsonify({"error": f"Strategy not found: {selected_strategy}"}), 404
+
     cerebro.addstrategy(strategy_map[selected_strategy])
     cerebro.addsizer(backtrader.sizers.FixedSize, stake=stake)
 
     print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
+    initial_portfolio_value = cerebro.broker.getvalue()
     cerebro.run()
-    print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
+    final_portfolio_value = cerebro.broker.getvalue()
+    print('Final Portfolio Value: %.2f' % final_portfolio_value)
+
+    # Save plot to a file
     cerebro.plot()
-    return jsonify({"message": "Trade executed"})
+
+
+    result = {
+        "initial_portfolio_value": initial_portfolio_value,
+        "final_portfolio_value": final_portfolio_value,
+        "plot_path": "/plot.png"
+    }
+
+    return jsonify(result)
+
+# Endpoint to serve the plot image
+@app.route('/plot.png')
+def plot_png():
+    plot_path = os.path.join(os.getcwd(), "flask-server", "plot.png")
+    if os.path.exists(plot_path):
+        return send_file(plot_path, mimetype='image/png')
+    else:
+        return jsonify({"error": "Plot not found"}), 404
 
 if __name__ == "__main__":
     app.run(debug=True)
 
-
-
-
+ 

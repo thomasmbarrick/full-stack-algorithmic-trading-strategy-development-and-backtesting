@@ -9,6 +9,7 @@ function App() {
   const [strategyDescription, setStrategyDescription] = useState("");
   const [stake, setStake] = useState(500);
   const [brokerCash, setBrokerCash] = useState(1000000);
+  const [plotUrl, setPlotUrl] = useState("");
 
   useEffect(() => {
     fetch("/companies")
@@ -105,6 +106,7 @@ function App() {
       .then(res => res.json())
       .then(data => {
         console.log(data);
+        setPlotUrl(data.plot_path);
       })
       .catch(error => {
         console.error("Error making trade:", error);
@@ -162,6 +164,7 @@ function App() {
           </div>
           <button onClick={handleParameterChange}>Set Parameters</button>
           <button onClick={handleTrade}>Make Trade</button>
+          {plotUrl && <img src={plotUrl} alt="Trade Plot" />}
         </>
       )}
     </div>
@@ -169,6 +172,9 @@ function App() {
 }
 
 export default App;
+
+
+
 
 
 
