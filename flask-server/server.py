@@ -129,8 +129,10 @@ def trade():
     print('Final Portfolio Value: %.2f' % final_portfolio_value)
 
     # Save plot to a file
-    cerebro.plot()
-
+    fig = cerebro.plot()[0][0]
+    plot_path = os.path.join(os.getcwd(), "flask-server", "plot.png")
+    fig.savefig(plot_path)
+    plt.close(fig)
 
     result = {
         "initial_portfolio_value": initial_portfolio_value,
@@ -151,5 +153,6 @@ def plot_png():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
  

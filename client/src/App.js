@@ -10,14 +10,18 @@ function App() {
   const [stake, setStake] = useState(500);
   const [brokerCash, setBrokerCash] = useState(1000000);
   const [plotUrl, setPlotUrl] = useState("");
+  const [initialPortfolioValue, setInitialPortfolioValue] = useState(null);
+  const [finalPortfolioValue, setFinalPortfolioValue] = useState(null);
 
   useEffect(() => {
     fetch("/companies")
       .then(res => res.json())
       .then(data => {
         setCompanies(data.Companies);
-        setSelectedCompany(data.Companies[0].name);
-        setSelectedCompanyDescription(data.Companies[0].description);
+        if (data.Companies.length > 0) {
+          setSelectedCompany(data.Companies[0].name);
+          setSelectedCompanyDescription(data.Companies[0].description);
+        }
       })
       .catch(error => {
         console.error("Error fetching companies:", error);
@@ -27,8 +31,10 @@ function App() {
       .then(res => res.json())
       .then(data => {
         setStrategies(data.Strategies);
-        setSelectedStrategy(data.Strategies[0].name);
-        setStrategyDescription(data.Strategies[0].description);
+        if (data.Strategies.length > 0) {
+          setSelectedStrategy(data.Strategies[0].name);
+          setStrategyDescription(data.Strategies[0].description);
+        }
       })
       .catch(error => {
         console.error("Error fetching strategies:", error);
@@ -38,7 +44,9 @@ function App() {
   useEffect(() => {
     if (selectedStrategy) {
       const selectedStrategyObj = strategies.find(strategy => strategy.name === selectedStrategy);
-      setStrategyDescription(selectedStrategyObj.description);
+      if (selectedStrategyObj) {
+        setStrategyDescription(selectedStrategyObj.description);
+      }
     }
   }, [selectedStrategy, strategies]);
 
@@ -46,42 +54,46 @@ function App() {
     const selectedValue = event.target.value;
     const selectedCompanyObj = companies.find(company => company.name === selectedValue);
     setSelectedCompany(selectedValue);
-    setSelectedCompanyDescription(selectedCompanyObj.description);
-    fetch("/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ selectedCompany: selectedCompanyObj.ticker })
-    })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data);
-    })
-    .catch(error => {
-      console.error("Error submitting company selection:", error);
-    });
+    if (selectedCompanyObj) {
+      setSelectedCompanyDescription(selectedCompanyObj.description);
+      fetch("/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ selectedCompany: selectedCompanyObj.ticker })
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        console.error("Error submitting company selection:", error);
+      });
+    }
   };
 
   const handleStrategyChange = event => {
     const selectedValue = event.target.value;
     setSelectedStrategy(selectedValue);
     const selectedStrategyObj = strategies.find(strategy => strategy.name === selectedValue);
-    fetch("/submitStrategy", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ selectedStrategy: selectedStrategyObj.class_title })
-    })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data);
-      setStrategyDescription(selectedStrategyObj.description);
-    })
-    .catch(error => {
-      console.error("Error submitting strategy selection:", error);
-    });
+    if (selectedStrategyObj) {
+      fetch("/submitStrategy", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ selectedStrategy: selectedStrategyObj.class_title })
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        setStrategyDescription(selectedStrategyObj.description);
+      })
+      .catch(error => {
+        console.error("Error submitting strategy selection:", error);
+      });
+    }
   };
 
   const handleParameterChange = () => {
@@ -106,7 +118,11 @@ function App() {
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        setPlotUrl(data.plot_path);
+        setInitialPortfolioValue(data.initial_portfolio_value);
+        setFinalPortfolioValue(data.final_portfolio_value);
+        if (data.plot_path) {
+          setPlotUrl(data.plot_path);
+        }
       })
       .catch(error => {
         console.error("Error making trade:", error);
@@ -164,7 +180,13 @@ function App() {
           </div>
           <button onClick={handleParameterChange}>Set Parameters</button>
           <button onClick={handleTrade}>Make Trade</button>
-          {plotUrl && <img src={plotUrl} alt="Trade Plot" />}
+
+          {initialPortfolioValue !== null && (
+            <p>Initial Portfolio Value: {initialPortfolioValue}</p>
+          )}
+          {finalPortfolioValue !== null && (
+            <p>Final Portfolio Value: {finalPortfolioValue}</p>
+          )}
         </>
       )}
     </div>
@@ -172,6 +194,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
