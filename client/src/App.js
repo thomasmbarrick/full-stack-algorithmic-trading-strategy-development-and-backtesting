@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react";
 
 function App() {
-  const [companies, setCompanies] = useState(null);
+  const [companies, setCompanies] = useState([]);
   const [selectedCompany, setSelectedCompany] = useState("");
-  const [strategies, setStrategies] = useState(null);
+  const [selectedCompanyDescription, setSelectedCompanyDescription] = useState("");
+  const [strategies, setStrategies] = useState([]);
   const [selectedStrategy, setSelectedStrategy] = useState("");
+  const [strategyDescription, setStrategyDescription] = useState("");
 
   useEffect(() => {
     fetch("/companies")
       .then(res => res.json())
       .then(data => {
-        console.log(data); // Log the data to verify the structure
-        setCompanies(data.Companies); // Update state with the companies data
+        setCompanies(data.Companies);
+        setSelectedCompany(data.Companies[0].name);
+        setSelectedCompanyDescription(data.Companies[0].description);
       })
       .catch(error => {
         console.error("Error fetching companies:", error);
@@ -20,23 +23,39 @@ function App() {
     fetch("/strategies")
       .then(res => res.json())
       .then(data => {
-        console.log(data); // Log the data to verify the structure
-        setStrategies(data.Strategies); // Update state with the strategies data
+        setStrategies(data.Strategies);
+        setSelectedStrategy(data.Strategies[0].class_title);
+        setStrategyDescription(data.Strategies[0].description);
       })
       .catch(error => {
         console.error("Error fetching strategies:", error);
       });
   }, []);
 
+  useEffect(() => {
+    if (selectedStrategy) {
+      fetch("/strategyDescription")
+        .then(res => res.json())
+        .then(data => {
+          setStrategyDescription(data.description);
+        })
+        .catch(error => {
+          console.error("Error fetching strategy description:", error);
+        });
+    }
+  }, [selectedStrategy]);
+
   const handleCompanyChange = event => {
     const selectedValue = event.target.value;
+    const selectedCompanyObj = companies.find(company => company.name === selectedValue);
     setSelectedCompany(selectedValue);
+    setSelectedCompanyDescription(selectedCompanyObj.description);
     fetch("/submit", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ selectedCompany: selectedValue })
+      body: JSON.stringify({ selectedCompany: selectedCompanyObj.ticker })
     })
     .then(res => res.json())
     .then(data => {
@@ -60,6 +79,14 @@ function App() {
     .then(res => res.json())
     .then(data => {
       console.log(data);
+      fetch("/strategyDescription")
+        .then(res => res.json())
+        .then(data => {
+          setStrategyDescription(data.description);
+        })
+        .catch(error => {
+          console.error("Error fetching strategy description:", error);
+        });
     })
     .catch(error => {
       console.error("Error submitting strategy selection:", error);
@@ -68,19 +95,21 @@ function App() {
 
   return (
     <div>
-      {companies === null || strategies === null ? (
+      {companies.length === 0 || strategies.length === 0 ? (
         <p>Loading...</p>
       ) : (
         <>
-          <h1>Select an Option</h1>
+
           <select value={selectedCompany} onChange={handleCompanyChange}>
             {companies.map((company) => (
-              <option key={company.ticker} value={company.ticker}>
+              <option key={company.ticker} value={company.name}>
                 {company.name}
               </option>
             ))}
           </select>
-          
+          <p>Selected Company: {selectedCompany}</p>
+          <p>{selectedCompanyDescription}</p>
+
           <select value={selectedStrategy} onChange={handleStrategyChange}>
             {strategies.map((strategy) => (
               <option key={strategy.class_title} value={strategy.class_title}>
@@ -89,8 +118,9 @@ function App() {
             ))}
           </select>
           
-          <p>Selected Company: {selectedCompany}</p>
+          
           <p>Selected Strategy: {selectedStrategy}</p>
+          <p>Strategy Description: {strategyDescription}</p>
         </>
       )}
     </div>
@@ -98,6 +128,9 @@ function App() {
 }
 
 export default App;
+
+
+
 
 
 

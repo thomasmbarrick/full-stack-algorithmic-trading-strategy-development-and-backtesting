@@ -4,7 +4,6 @@ import datetime
 from strategies import BB, MeanReversionStrategy, MACD, MovingAverageCrossover, RSI
 import json
 import os
-import pathlib
 
 app = Flask(__name__)
 
@@ -23,7 +22,7 @@ TODO - MMMVP
 historical_data_path = os.path.join(os.getcwd(), "flask-server", "historical_data.json")
 with open(historical_data_path, "r") as historical_data_file:
     historical_data = json.load(historical_data_file)
-    
+
 strategy_path = os.path.join(os.getcwd(), "flask-server", "strategy.json")
 with open(strategy_path, "r") as strategy_file:
     strategy = json.load(strategy_file)
@@ -32,8 +31,8 @@ with open(strategy_path, "r") as strategy_file:
 selected_stock = historical_data["Companies"][0]['ticker']
 selected_strategy = strategy["Strategies"][0]["class_title"]
 
-stake=500
-broker_cash=1000000
+stake = 500
+broker_cash = 1000000
 
 """API route to get companies from historical_data json"""
 @app.route("/companies")
@@ -73,21 +72,29 @@ def submit_strategy():
     print(f"Selected strategy: {selected_strategy}")
     return jsonify({"message": "Selection received", "selectedStrategy": selected_strategy})
 
-
-"""API route to get companies from strategies JSON"""
+"""API route to get strategies from strategies JSON"""
 @app.route("/strategies")
 def strategies():
     return jsonify(strategy)
 
-""" API Route to make trade"""
+"""API route to get strategy description"""
+@app.route("/strategyDescription")
+def strategy_description():
+    global selected_strategy
+    for strat in strategy["Strategies"]:
+        if strat["class_title"] == selected_strategy:
+            return jsonify({"description": strat["description"]})
+    return jsonify({"error": "Strategy not found"}), 404
 
+""" API Route to make trade"""
 @app.route("/trade")
 def trade():
     cerebro = backtrader.Cerebro()
     cerebro.broker.set_cash(broker_cash)
 
+    data_path = os.path.join("historical_data", f"{selected_stock}.csv")
     data = backtrader.feeds.YahooFinanceCSVData(
-        dataname=os.path.join("historical_data", "SP500_data.csv"),
+        dataname=data_path,
         fromdate=datetime.datetime(2000, 1, 1),
         todate=datetime.datetime(2024, 1, 1),
         reverse=False)
@@ -113,4 +120,6 @@ def trade():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
 
