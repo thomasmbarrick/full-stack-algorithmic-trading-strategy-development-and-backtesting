@@ -222,8 +222,8 @@ class MovingAverageCrossover(bt.Strategy):
     def __init__(self):
         self.dataclose = self.datas[0].close
         self.order = None
-        self.short_sma = backtrader.indicators.SMA(self.data, period=self.p.short_period)
-        self.long_sma = backtrader.indicators.SMA(self.data, period=self.p.long_period)
+        self.short_sma = bt.indicators.SMA(self.data, period=self.p.short_period)
+        self.long_sma = bt.indicators.SMA(self.data, period=self.p.long_period)
         
     def notify_order(self, order):
         if order.status in [order.Submitted, order.Accepted]:
